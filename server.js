@@ -10,7 +10,7 @@ dotenv.config();
 
 //router import
 const userRoutes = require("./routes/userRoutes");
-const blogRoutes = require('./routes/blogroutes.js');
+const blogRoutes = require('./routes/blogRoutes.js');
 
 
 //mongodb connection
