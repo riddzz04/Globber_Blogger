@@ -12,7 +12,6 @@ dotenv.config();
 const userRoutes = require("./routes/userRoutes");
 const blogRoutes = require('./routes/blogRoutes.js');
 
-
 //mongodb connection
 connectDB();
 
@@ -24,20 +23,25 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Server is running!');
+});
+
 //routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/blog", blogRoutes);
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
-  console.error(`Unhandled Rejection: ${err.message}`);
+  console.error(Unhandled Rejection: ${err.message});
   // Optionally, terminate the process if needed
   process.exit(1);
 });
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
-  console.error(`Uncaught Exception: ${err.message}`);
+  console.error(Uncaught Exception: ${err.message});
   // Optionally, terminate the process if needed
   process.exit(1);
 });
@@ -48,6 +52,6 @@ const PORT = process.env.PORT || 3000;
 //listen
 app.listen(PORT, () => {
   console.log(
-    `Server Running on ${process.env.DEV_MODE} mode port no ${PORT}`.bgCyan.white
-  );
+    Server Running on ${process.env.DEV_MODE} mode port no ${PORT}.bgCyan.white
+  );
 });
