@@ -43,7 +43,7 @@ process.on('uncaughtException', (err) => {
 });
 
 // Port
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 //listen
 app.listen(PORT, () => {
