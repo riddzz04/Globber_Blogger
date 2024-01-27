@@ -41,4 +41,19 @@ process.on('unhandledRejection', (err) => {
 });
 
 // Handle uncaught exceptions
-process.on('uncaughtExcept
+process.on('uncaughtException', (err) => {
+  console.error(`Uncaught Exception: ${err.message}`);
+  // Optionally, terminate the process if needed
+  process.exit(1);
+});
+
+// Port
+const PORT = process.env.PORT || 3000;
+
+// Listen
+app.listen(PORT, () => {
+  console.log(
+    `Server Running on ${process.env.DEV_MODE} mode port no ${PORT}`.bgCyan.white
+  );
+});
+
