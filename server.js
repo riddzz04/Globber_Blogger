@@ -4,54 +4,41 @@ const morgan = require("morgan");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const path = require('path');
 
-//env config
+// Env config
 dotenv.config();
 
-//router import
+// Router import
 const userRoutes = require("./routes/userRoutes");
 const blogRoutes = require('./routes/blogRoutes.js');
 
-//mongodb connection
+// MongoDB connection
 connectDB();
 
-//rest object
+// REST object
 const app = express();
 
-//middlewares
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
-
-//routes
+// Routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/blog", blogRoutes);
 
+app.use(express.static(path.join(__dirname, './client/build')))
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
+});
+
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
-  console.error(Unhandled Rejection: ${err.message});
+  console.error(`Unhandled Rejection: ${err.message}`);
   // Optionally, terminate the process if needed
   process.exit(1);
 });
 
 // Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-  console.error(Uncaught Exception: ${err.message});
-  // Optionally, terminate the process if needed
-  process.exit(1);
-});
-
-// Port
-const PORT = process.env.PORT || 3000;
-
-//listen
-app.listen(PORT, () => {
-  console.log(
-    Server Running on ${process.env.DEV_MODE} mode port no ${PORT}.bgCyan.white
-  );
-});
+process.on('uncaughtExcept
